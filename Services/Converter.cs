@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MauiWheater.Models;
 using Newtonsoft.Json;
+using static MauiWheater.Models.CityForecast;
+
 namespace MauiWheater.Services
 {
     public class Converter
@@ -22,6 +24,19 @@ namespace MauiWheater.Services
                 throw;
             }
             
+        }
+        public Root toDailyForecast(string json)
+        {
+            try
+            {
+                var DForecast = JsonConvert.DeserializeObject<Root>(json);
+                return DForecast;
+            }
+            catch (Exception)
+            {
+                throw;
+                throw;
+            }
         }
     }
 }
