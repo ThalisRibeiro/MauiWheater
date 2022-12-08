@@ -29,14 +29,18 @@ namespace MauiWheater.ViewModels
         [RelayCommand]
         public void SearchCity()
         {
-            //searchedCities= new ObservableCollection<SearchedCity>();   
+            if (canSearch() == false)
+                return;
             Api.ApiKey = apiKey;
             var result = Api.SearchCity(searchString);
+            if (result.Status == TaskStatus.Faulted)
+            {
+                //enviar mensagem que ocorreu algum erro ao buscar os dados da api
+                return;
+            }
             var json = Api.JsonContent;
             Converter cv = new Converter();
-            //searchedCities.AddRange(cv.ToSearchedCity(json));
             adding(cv.ToSearchedCity(json));
-            //searchedCities= cv.ToSearchedCity(json);
         }
         void adding(List<SearchedCity> cities)
         {
@@ -47,9 +51,9 @@ namespace MauiWheater.ViewModels
         }
         bool canSearch()
         {
-            if (apiKey != "" && searchString != "")
-                return true;
-            return false;
+            if (string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(searchString))
+                return false;
+            return true;
         }
     }
 }
