@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using MauiWheater.Models;
 using MauiWheater.Services;
+using MauiWheater.Views;
 using MvvmHelpers;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,8 @@ namespace MauiWheater.ViewModels
             }
             var json = Api.JsonContent;
             ConvertingToDaily(in json);
+            _ = goToDailyForecastPageAsync();
+
         }
         void ConvertingToDaily(in string json)
         {
@@ -68,6 +71,10 @@ namespace MauiWheater.ViewModels
             {
                 searchedCities.Add(cities[i]);
             }
+        }
+        async Task goToDailyForecastPageAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(DailyForecastPage));
         }
         bool canSearch()
         {
