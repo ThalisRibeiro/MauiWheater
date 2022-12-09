@@ -16,7 +16,13 @@
             <Entry Placeholder="Cidade" Text="{Binding SearchString}" />
             <Entry Placeholder="Api" Text="{Binding ApiKey}" />
             <Button Command="{Binding SearchCityCommand}" Text="Search City" />
-            <CollectionView BackgroundColor="Aqua" ItemsSource="{Binding SearchedCities}">
+            <CollectionView
+                BackgroundColor="Aqua"
+                ItemsSource="{Binding SearchedCities}"
+                SelectedItem="{Binding SelectedCity}"
+                SelectionChangedCommand="{Binding SearchDailyCommand}"
+                SelectionChangedCommandParameter=""
+                SelectionMode="Single">
                 <CollectionView.EmptyView>
                     <Label Text="Empty" />
                 </CollectionView.EmptyView>

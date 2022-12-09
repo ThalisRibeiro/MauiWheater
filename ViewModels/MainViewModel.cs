@@ -26,6 +26,9 @@ namespace MauiWheater.ViewModels
         [ObservableProperty]
         public ObservableCollection<SearchedCity> searchedCities;
 
+        [ObservableProperty]
+        public SearchedCity selectedCity;
+
         [RelayCommand]
         public void SearchCity()
         {
@@ -41,6 +44,23 @@ namespace MauiWheater.ViewModels
             var json = Api.JsonContent;
             Converter cv = new Converter();
             adding(cv.ToSearchedCity(json));
+        }
+        [RelayCommand]
+        public void SearchDaily(/*SearchedCity city*/)
+        {
+            var result = Api.GetInfoCity(selectedCity.CityKey);
+            if (result.Status == TaskStatus.Faulted)
+            {
+                //enviar mensagem que ocorreu algum erro ao buscar os dados da api
+                return;
+            }
+            var json = Api.JsonContent;
+            ConvertingToDaily(in json);
+        }
+        void ConvertingToDaily(in string json)
+        {
+            var cv = new Converter();
+            var Daily = cv.toDailyForecast(json);
         }
         void adding(List<SearchedCity> cities)
         {
