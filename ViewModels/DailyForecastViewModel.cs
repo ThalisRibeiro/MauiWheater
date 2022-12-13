@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using MauiWheater.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,20 @@ using static MauiWheater.Models.CityForecast;
 
 namespace MauiWheater.ViewModels
 {
+    [QueryProperty(nameof(Daily), nameof(Daily))]
+    [QueryProperty(nameof(City), nameof(City))]
     [ObservableObject]
     public partial class DailyForecastViewModel
     {
         public DailyForecastViewModel() { }
-
         [ObservableProperty]
-        Root root;
+        SearchedCity city;
+        [ObservableProperty]
+        Root daily;
+        [RelayCommand]
+        public void Testando()
+        {
+            return;
+        }
     }
 }
