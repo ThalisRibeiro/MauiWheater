@@ -33,7 +33,16 @@ namespace MauiWheater.Models
             {
                 get
                 {
-                    return $"https://www.accuweather.com/images/weathericons/{Icon}.svg";
+                    //return $"https://www.accuweather.com/images/weathericons/{Icon}.svg";
+                    return $"https://developer.accuweather.com/sites/default/files/{Icon}-s.png";
+                }
+            }
+            public Uri IconUrl
+            {
+                get
+                {
+                    Uri uri = new Uri(IconUri);
+                    return uri;
                 }
             }
         }
