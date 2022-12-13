@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MauiWheater.Models.CityForecast;
 
 namespace MauiWheater.ViewModels
 {
@@ -56,14 +57,14 @@ namespace MauiWheater.ViewModels
                 return;
             }
             var json = Api.JsonContent;
-            ConvertingToDaily(in json);
-            _ = goToDailyForecastPageAsync();
+            var daily =ConvertingToDaily(in json);
+            goToDailyForecastPageAsync(createDictionary(daily));
 
         }
-        void ConvertingToDaily(in string json)
+        Root ConvertingToDaily(in string json)
         {
             var cv = new Converter();
-            var Daily = cv.toDailyForecast(json);
+            return cv.toDailyForecast(json);
         }
         void adding(List<SearchedCity> cities)
         {
@@ -72,15 +73,24 @@ namespace MauiWheater.ViewModels
                 searchedCities.Add(cities[i]);
             }
         }
-        async Task goToDailyForecastPageAsync()
+        async Task goToDailyForecastPageAsync(Dictionary<string, object> pairs)
         {
-            await Shell.Current.GoToAsync(nameof(DailyForecastPage));
+            await Shell.Current.GoToAsync(nameof(DailyForecastPage), pairs);
         }
         bool canSearch()
         {
             if (string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(searchString))
                 return false;
             return true;
+        }
+        Dictionary<string,object> createDictionary(Root root)
+        {
+            return new Dictionary<string, object>
+            {
+                [nameof(DailyForecastViewModel.City)] = SelectedCity,
+                ["Daily"] = root,
+            };
+
         }
     }
 }
