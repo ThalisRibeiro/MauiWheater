@@ -10,7 +10,28 @@
         <ViewModels:DailyForecastViewModel />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
-        <Grid ColumnDefinitions="*,*">
+        <Grid ColumnDefinitions="*,*" MinimumHeightRequest="100">
+            <Grid
+                Grid.Column="1"
+                BackgroundColor="BlanchedAlmond"
+                ColumnDefinitions="*,*"
+                MinimumHeightRequest="100"
+                RowDefinitions="*,*,*,*">
+                <Image
+                    MaximumHeightRequest="35"
+                    MaximumWidthRequest="35"
+                    Source="{Binding Daily.DailyForecasts[0].Day.IconUri}" />
+                <Label Grid.ColumnSpan="2" Text="{Binding Daily.Headline.Text}" />
+                <Label
+                    Grid.Row="2"
+                    HorizontalTextAlignment="End"
+                    Text="{Binding Daily.DailyForecasts[0].Temperature.Maximum.Value}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding Daily.DailyForecasts[0].Temperature.Maximum.Unit}" />
+                <Label Grid.Row="3" Text="Dia" />
+            </Grid>
             <Label Grid.Column="0" Text="{Binding City.CityName}" />
             <Image
                 BackgroundColor="AliceBlue"
