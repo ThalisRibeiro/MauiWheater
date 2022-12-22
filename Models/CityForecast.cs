@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MauiWheater.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,8 +35,10 @@ namespace MauiWheater.Models
                 get
                 {
                     //return $"https://www.accuweather.com/images/weathericons/{Icon}.svg";
-                    return $"https://cdn.discover.swiss/icons/weather/ds-weather-{Icon}.svg";
-                    //return $"https://developer.accuweather.com/sites/default/files/{Icon}-s.png";
+                    //_ = Api.GetIcon($"https://cdn.discover.swiss/icons/weather/ds-weather-{Icon}.svg", this.Icon.ToString());
+                    //return $"{FileSystem.Current.CacheDirectory}/{this.Icon}.svg";
+                    //return $"https://cdn.discover.swiss/icons/weather/ds-weather-{Icon}.svg";
+                    return $"https://developer.accuweather.com/sites/default/files/{Icon}-s.png";
                 }
             }
             public Uri IconUrl
@@ -57,6 +60,10 @@ namespace MauiWheater.Models
 
         public class MaxMin
         {
+            public string Full { get
+                {
+                    return $"{Value} {Unit}";
+                } }
             public string Value { get; set; }
             public string Unit { get; set; }
             public string UnitType { get; set; }
