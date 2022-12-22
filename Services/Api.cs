@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 //using static Android.Provider.DocumentsContract;
@@ -34,6 +35,19 @@ namespace MauiWheater.Services
                 .AddQueryParameter("metric", true);
             RestResponse response = client.GetAsync(request).Result;
             JsonContent = response.Content;
+        }
+        public static async Task GetIcon(string uri, string iconNumber)
+        {
+            client.Options.BaseUrl = new Uri(uri);
+            var request = new RestRequest();
+            var response = client.ExecuteAsync(request).Result;
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var svg = response.RawBytes;
+                var filestream = new FileStream($"{FileSystem.Current.CacheDirectory}/{iconNumber}",FileMode.Create);
+                filestream.Write(svg, 0, svg.Length);
+            }
+            client.Options.BaseUrl = new Uri("http://dataservice.accuweather.com");
         }
     }
 }
