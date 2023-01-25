@@ -37,8 +37,9 @@ namespace MauiWheater.Models
                     //return $"https://www.accuweather.com/images/weathericons/{Icon}.svg";
                     //_ = Api.GetIcon($"https://cdn.discover.swiss/icons/weather/ds-weather-{Icon}.svg", this.Icon.ToString());
                     //return $"{FileSystem.Current.CacheDirectory}/{this.Icon}.svg";
+                    return $"ds{Icon}weather.png";
                     //return $"https://cdn.discover.swiss/icons/weather/ds-weather-{Icon}.svg";
-                    return $"https://developer.accuweather.com/sites/default/files/{Icon}-s.png";
+                    //return $"https://developer.accuweather.com/sites/default/files/{Icon}-s.png";
                 }
             }
             public Uri IconUrl
